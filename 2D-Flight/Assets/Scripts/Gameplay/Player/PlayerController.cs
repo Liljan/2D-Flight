@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
 
     public float rotationSpeed = 10.0f;
 
-    private float _debugThrottle;
+    private float _debugSpeed;
 
     // Turning
 
@@ -47,15 +47,15 @@ public class PlayerController : MonoBehaviour
         float rot = rotationSpeed * horizontal * Time.deltaTime;
         _rb2d.rotation += rot;
 
-        float speed = MapThrottle(throttle);
+        float speed = CalculateSpeed(throttle);
 
         Vector2 vel = transform.up * speed;
-        _debugThrottle = speed;
+        _debugSpeed = speed;
 
         _rb2d.velocity = vel;
     }
 
-    private float MapThrottle(float rawThrottle)
+    private float CalculateSpeed(float rawThrottle)
     {
         // map throttle from [-1,1] to [0,1]
         rawThrottle += 1.0f;
@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnGUI()
     {
-        GUI.Box(new Rect(10, 10, 100, 90), "Throttle: " + _debugThrottle);
+        GUI.Box(new Rect(10, 10, 100, 90), "Throttle: " + _debugSpeed);
     }
 
 
